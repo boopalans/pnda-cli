@@ -51,9 +51,10 @@ if [ "x$ADD_ONLINE_REPOS" == "xYES" ]; then
   yum-config-manager --enable $RPM_EXTRAS $RPM_OPTIONAL
   yum install -y yum-plugin-priorities
   PNDA_REPO=${PNDA_MIRROR/http\:\/\//}
-  PNDA_REPO=${PNDA_REPO/\//_mirror_rpm}
+  PNDA_REPO=${PNDA_REPO/\//_}_mirror_rpm
   yum-config-manager --add-repo $PNDA_MIRROR/mirror_rpm
   yum-config-manager --setopt="$PNDA_REPO.priority=1" --enable $PNDA_REPO
+  yum-config-manager --setopt=\*.skip_if_unavailable=1 --save \*
 else
   mkdir -p /etc/yum.repos.d.backup/
   mv /etc/yum.repos.d/* /etc/yum.repos.d.backup/
